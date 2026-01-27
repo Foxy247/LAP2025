@@ -8,7 +8,7 @@ use PDO;
 class DB
 {
 
-    private static $host = '127.0.0.1:3308';
+    private static $host = '127.0.0.1:3310';
     private static $user = 'root';
     private static $pass = '';
     private static $dbName = 'lap2025';

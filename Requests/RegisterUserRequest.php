@@ -3,6 +3,7 @@
 namespace Requests;
 
 class RegisterUserRequest
+
 {
 
     private static array $errors = [];

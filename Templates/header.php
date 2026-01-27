@@ -1,5 +1,5 @@
 <?php
-require_once 'D:/OneDrive/programieng/httdocs/lap2025/vendor/autoload.php';
+require_once '/Applications/XAMPP/xamppfiles/htdocs/LAP2025/vendor/autoload.php';
 
 use Controller\AuthController;
 use Middleware\IsAdmin;
@@ -34,7 +34,7 @@ if (isset($_POST['logout'])) {
                     <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                 </li>
 
-                <?php if (!IsUser::handle()): ?>
+                <?php if (!IsUser::handle()): ?> 
                     <li class="nav-item">
                         <a class="nav-link" href="register.php">Register</a>
                     </li>

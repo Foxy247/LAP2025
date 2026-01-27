@@ -9,7 +9,7 @@ use Model\User;
 
 class AuthController
 {
-
+    //REGISTER
     public static function register($data): array|bool
     {
         $errors = RegisterUserRequest::validate($data);
@@ -25,6 +25,7 @@ class AuthController
         return true;
     }
 
+    // LOGIN
     public static function login($data): array|bool
     {
         $errors = LoginRequest::validate($data);
@@ -35,7 +36,7 @@ class AuthController
 
         $userModel = new User();
         $user = $userModel->findByEmail($data['email']);
-
+ 
         if (!$user) {
             $errors['email'] = 'Email is not registered';
             return $errors;
@@ -50,7 +51,7 @@ class AuthController
         $_SESSION['user'] = $user;
         return true;
     }
-
+    //LOGOUT
     public static function logout(): void
     {
         session_destroy();

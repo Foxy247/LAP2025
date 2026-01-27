@@ -9,6 +9,10 @@ if (!IsAdmin::handle()) {
     exit();
 }
 
+if (isset($_POST['delete'])){
+    UserController::delete($_POST['id']);
+}
+
 $users = UserController::index();
 
 ?>
@@ -19,10 +23,11 @@ $users = UserController::index();
 
 <div class="d-flex justify-content-between">
     <a href="admin.php" class="btn btn-secondary">Back</a>
-    <a href="#" class="btn btn-primary">Add new User</a>
+    <a href="createUser.php" class="btn btn-primary">Add new User</a>
 </div>
 <hr>
 
+<!-- Table -->
 <table class="table">
     <thead>
     <tr>
@@ -43,8 +48,14 @@ $users = UserController::index();
             <td><?= $user['email'] ?></td>
             <td><?= $user['phone'] ?></td>
             <td>
-                <button type="button" class="btn btn-warning">Edit</button>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <!-- Edit User -->
+                <a href="editUser.php?id=<?= $user['id'] ?>" class="btn btn-warning">Edit</a>
+
+                <!-- Delete User -->
+                <form action="" method="POST">
+                    <input type="text" name="id" value="<?= $user['id'] ?>" hidden>
+                <button class="btn btn-danger" name="delete">Delete</button>
+                </form>
             </td>
         </tr>
     <?php endforeach; ?>
