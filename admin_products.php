@@ -37,6 +37,7 @@ $products = ProductController::index();
         <th scope="col">description</th>
         <th scope="col">stock</th>
         <th scope="col">price</th>
+        <th scope="col">availability</th>
         
     </tr>
     </thead>
@@ -49,6 +50,7 @@ $products = ProductController::index();
             <td><?= $product['description'] ?></td>
             <td><?= $product['stock'] ?></td>
             <td><?= $product['price'] ?></td>
+            <td><?= $product['is_active'] ?></td>
             <td>
                 <!-- edit product -->
                 <a href="editProduct.php?id=<?= $product['id'] ?>" class="btn btn-warning">Edit</a>

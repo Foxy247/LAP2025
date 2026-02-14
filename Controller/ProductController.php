@@ -20,7 +20,7 @@ class ProductController
         return $product->index();
     }
 
-    public static function create($data): array|bool
+    public static function create($data, $files): array|bool
     {
 
         IsAdmin::handle();
@@ -31,9 +31,8 @@ class ProductController
             return $errors;
         }
 
-        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
-        $data['is_admin'] = $data['is_admin'] == 'a' ? 1 : 0;
+        $data['is_active'] = $data['is_active'] == 'a' ? 1 : 0;
 
         $productModel = new Product();
         $productModel->store($data);
@@ -42,17 +41,18 @@ class ProductController
 
     public static function update($id,$data) : array|bool
     {
+        IsAdmin::handle();
+
         $errors = UpdateProductRequest::validate($data);
 
         if(count($errors) > 0) {
             return $errors;
         }
 
-        $data['is_admin'] = $data['is_admin'] == 'a' ? 1 : 0;
         $data['is_active'] = $data['is_active'] == 'a' ? 1 : 0;
 
         $productModel = new Product(); 
-        $productModel->update_admin($id, $data);
+        $productModel->update($id, $data);
 
         return true;
     }

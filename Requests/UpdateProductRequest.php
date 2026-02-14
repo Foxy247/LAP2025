@@ -36,7 +36,7 @@ class UpdateProductRequest
             self::$errors['is_active'] = 'is_active is required';
         } else if ($data['is_active'] != 'i' && $data['is_active'] != 'a' )
         {
-            self::$errors['is_active'] = 'is_active must be 2 or 1'; 
+            self::$errors['is_active'] = 'is_active must be 0 or 1'; 
         }
 
         return self::$errors;

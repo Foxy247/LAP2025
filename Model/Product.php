@@ -58,15 +58,15 @@ class Product extends DB
 
     public function update(int $id, array $data): array
     {
-        $sql = "UPDATE products SET name = :name, description = :description, stock = :stock, price = :price, image = :image, is_active = :is_active WHERE id = :id";
+        $sql = "UPDATE products SET name = :name, description = :description, stock = :stock, price = :price, is_active = :is_active WHERE id = :id";
 
         $stmt = $this->conn->prepare($sql);
 
+        $stmt->bindParam(':id', $id); 
         $stmt->bindParam(':name', $data['name']);
         $stmt->bindParam(':description', $data['description']);
         $stmt->bindParam(':stock', $data['stock']);
         $stmt->bindParam(':price', $data['price']);
-        $stmt->bindParam(':image', $data['image']);
         $stmt->bindParam(':is_active', $data['is_active']);
 
 
