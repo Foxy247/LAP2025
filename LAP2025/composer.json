@@ -1,0 +1,19 @@
+{
+    "name": "abdul-rahman/lap2025",
+    "description": "LAP 2024",
+    "autoload": {
+        "psr-4": {
+            "Controller\\": "Controller/",
+            "Model\\": "Model/",
+            "Requests\\": "Requests/",
+            "Middleware\\": "Middleware/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Soap404",
+            "email": "alarjawia@gmail.com"
+        }
+    ],
+    "require": {}
+}
