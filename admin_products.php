@@ -45,7 +45,7 @@ $products = ProductController::index();
     <?php foreach ($products as $product) : ?>
         <tr>
             <th scope="row"><?= $product['id'] ?></th>
-            <td><?= $product['image'] ?></td>
+            <td><img src="images/<?= $product['image'] ?>" width="80"</td>
             <td><?= $product['name'] ?></td>
             <td><?= $product['description'] ?></td>
             <td><?= $product['stock'] ?></td>

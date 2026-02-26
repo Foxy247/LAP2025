@@ -21,7 +21,7 @@ if(!$product) {
 $errors = [];
 
 if (isset($_POST['update'])) {
-    $result = ProductController::update($id,$_POST);
+    $result = ProductController::update($id,$_POST, $_FILES);
     if ($result === true) {
         header('Location: admin_products.php');
         exit;
@@ -30,14 +30,12 @@ if (isset($_POST['update'])) {
     }
 }
 
-
-
 ?>
 
 
 <h1>Admin - Edit a Product</h1>
 
-<form action="" method="POST">
+<form action="" method="POST" enctype="multipart/form-data">
 
         <div class="mb-3">
             <label for="name" class="form-label">Product Name</label>
@@ -58,6 +56,16 @@ if (isset($_POST['update'])) {
             <label for="price" class="form-label">price</label>
             <input type="text" class="form-control" id="price" name="price" value="<?= $product['price'] ?>">
         </div>
+
+        <div class="mb-3">
+        <label class="mb-3"></label><br>
+            <?php if (!empty($product['image'])): ?>
+                <img src="images/<?= $product['image'] ?>" width="100"><br><br>
+            <?php endif; ?>
+            <input type="file" name="image">
+        </div>
+
+    
 
         <div class="mb-3">
             <label for="is_active">Availability</label>

@@ -15,7 +15,6 @@ if (isset($_POST['register'])) {
         $errors = $result;
     }
 }
-
 ?>
 
 
@@ -52,7 +51,8 @@ if (isset($_POST['register'])) {
 
         <div class="mb-3">
             <label class="form-label">image</label>
-            <input type="file" name="file">
+            <input type="file" name="image">
+            
 
         </div>
 

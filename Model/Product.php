@@ -58,8 +58,19 @@ class Product extends DB
 
     public function update(int $id, array $data): array
     {
-        $sql = "UPDATE products SET name = :name, description = :description, stock = :stock, price = :price, is_active = :is_active WHERE id = :id";
+        $sql = "UPDATE products SET
+                    name = :name, 
+                    description = :description, 
+                    stock = :stock, 
+                    price = :price, 
+                    is_active = :is_active";
 
+
+        if (isset($data['image']) && $data['image'] !== null && $data['image'] !== '') {
+            $sql .= ", image = :image";
+        }
+
+        $sql .= " WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
 
         $stmt->bindParam(':id', $id); 
@@ -68,11 +79,14 @@ class Product extends DB
         $stmt->bindParam(':stock', $data['stock']);
         $stmt->bindParam(':price', $data['price']);
         $stmt->bindParam(':is_active', $data['is_active']);
-
+        
+        if (isset($data['image']) && $data['image'] !== null && $data['image'] !== '') {
+        $stmt->bindParam(':image', $data['image']);
+        }
 
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return [];
     }
 
     public function destroy(int $id): void

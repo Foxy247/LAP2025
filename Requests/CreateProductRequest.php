@@ -32,13 +32,15 @@ class CreateProductRequest
             self::$errors['price'] = 'Price must be greater than 0';
         }
 
-
+        if (!empty($file)) {
+        
         if(in_array($file['ex'], ['jpg', 'jpeg', 'png'])) {
             self::$errors['image'] = 'File should be an Image';
-        } else if ($file['size'] && $file['size'] > 1000000) {
+        } else if ($file['size'] && $file['size'] > 10000000) {
             self::$errors['image'] = 'Image is too large';
         }
 
+        }
         if (empty($data['is_active'])) {
             self::$errors['is_active'] = 'Availability is required';
         } else if ($data['is_active'] != 'i' && $data['is_active'] != 'a' )
