@@ -20,6 +20,13 @@ class ProductController
         return $product->index();
     }
 
+    public static function userIndex(): array
+    {
+        IsAdmin::handle();
+        $product = new Product();
+        return $product->userIndex();
+    }
+
     public static function create($data, $files): array|bool
     {
         IsAdmin::handle();
@@ -30,7 +37,6 @@ class ProductController
         if (count($errors) > 0) {
             return $errors;
         } 
-
 
         $image = self::uploadImage($imageFile);
 
@@ -43,6 +49,16 @@ class ProductController
 
         $productModel->store($data);
         return true;
+    }
+
+    public static function show($id) : array|bool
+    {
+        $productModel = new Product();
+        $product = $productModel->show($id);
+        if(!$product){
+            return false;
+        }
+        return $product; 
     }
 
     private static function uploadImage($imageFile)

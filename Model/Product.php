@@ -15,6 +15,14 @@ class Product extends DB
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function userIndex(): array
+    {
+        $sql = "SELECT * FROM products WHERE is_active = 1";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function show(int $id): array|bool
     {
         $sql = "SELECT * FROM products WHERE id = :id";
