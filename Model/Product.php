@@ -23,6 +23,21 @@ class Product extends DB
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getByIds(array $ids): array
+    {
+        if (empty($ids)) {
+            return [];
+        }
+
+        $placeholders = str_repeat('?,', count($ids) - 1) . '?';
+
+        $sql = "SELECT * FROM products WHERE id IN ($placeholders)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute($ids);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function show(int $id): array|bool
     {
         $sql = "SELECT * FROM products WHERE id = :id";
@@ -81,15 +96,15 @@ class Product extends DB
         $sql .= " WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
 
-        $stmt->bindParam(':id', $id); 
+        $stmt->bindParam(':id', $id);
         $stmt->bindParam(':name', $data['name']);
         $stmt->bindParam(':description', $data['description']);
         $stmt->bindParam(':stock', $data['stock']);
         $stmt->bindParam(':price', $data['price']);
         $stmt->bindParam(':is_active', $data['is_active']);
-        
+
         if (isset($data['image']) && $data['image'] !== null && $data['image'] !== '') {
-        $stmt->bindParam(':image', $data['image']);
+            $stmt->bindParam(':image', $data['image']);
         }
 
         $stmt->execute();
@@ -104,5 +119,4 @@ class Product extends DB
         $stmt->bindParam(':id', $id);
         $stmt->execute();
     }
-
 }

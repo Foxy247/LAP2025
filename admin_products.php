@@ -10,7 +10,7 @@ if (!IsAdmin::handle()) {
     exit();
 }
 
-if (isset($_POST['delete'])){
+if (isset($_POST['delete'])) {
     ProductController::delete($_POST['id']);
 }
 
@@ -30,39 +30,39 @@ $products = ProductController::index();
 <!-- Table -->
 <table class="table">
     <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">image</th>
-        <th scope="col">name</th>
-        <th scope="col">description</th>
-        <th scope="col">stock</th>
-        <th scope="col">price</th>
-        <th scope="col">availability</th>
-        
-    </tr>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">image</th>
+            <th scope="col">name</th>
+            <th scope="col">description</th>
+            <th scope="col">stock</th>
+            <th scope="col">price</th>
+            <th scope="col">availability</th>
+
+        </tr>
     </thead>
     <tbody>
-    <?php foreach ($products as $product) : ?>
-        <tr>
-            <th scope="row"><?= $product['id'] ?></th>
-            <td><img src="images/<?= $product['image'] ?>" width="80"</td>
-            <td><?= $product['name'] ?></td>
-            <td><?= $product['description'] ?></td>
-            <td><?= $product['stock'] ?></td>
-            <td><?= $product['price'] ?></td>
-            <td><?= $product['is_active'] ?></td>
-            <td>
-                <!-- edit product -->
-                <a href="editProduct.php?id=<?= $product['id'] ?>" class="btn btn-warning">Edit</a>
+        <?php foreach ($products as $product) : ?>
+            <tr>
+                <th scope="row"><?= $product['id'] ?></th>
+                <td><img src="images/<?= $product['image'] ?>" width="80" </td>
+                <td><?= $product['name'] ?></td>
+                <td><?= $product['description'] ?></td>
+                <td><?= $product['stock'] ?></td>
+                <td><?= $product['price'] ?></td>
+                <td><?= $product['is_active'] ?></td>
+                <td>
+                    <!-- edit product -->
+                    <a href="editProduct.php?id=<?= $product['id'] ?>" class="btn btn-warning">Edit</a>
 
-                <!-- delete product -->
-                <form action="" method="POST">
-                    <input type="text" name="id" value="<?= $product['id'] ?>" hidden>
-                <button class="btn btn-danger" name="delete">Delete</button>
-                </form>
-            </td>
-        </tr>
-    <?php endforeach; ?>
+                    <!-- delete product -->
+                    <form action="" method="POST">
+                        <input type="text" name="id" value="<?= $product['id'] ?>" hidden>
+                        <button class="btn btn-danger" name="delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        <?php endforeach; ?>
 
 
     </tbody>
