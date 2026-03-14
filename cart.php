@@ -4,11 +4,23 @@ require_once 'Templates/header.php';
 
 use Controller\CartController;
 
-// print_r($_SESSION);
-// in Table = Alle Produkte aus der Session anzeigen - Stock durch qty ersetzen aus session 
+// print_r($_POST);
+
+if (isset($_POST['update'])) {
+    // echo("true");
+    $result = CartController::updateQuantity($_POST);
+    if ($result === true) {
+        header('Location: cart.php');
+        
+        exit;
+    } else {
+        $errors = $result;
+    }
+}
 
 $products = CartController::showCartProduct();
-// print_r($products);
+$total = CartController::getCartTotal();
+
 
 ?>
 
@@ -31,9 +43,24 @@ $products = CartController::showCartProduct();
         <?php foreach ($products as $product) : ?>
             <tr>
                 <th scope="row"><?= $product['id'] ?></th>
-                <td><img src="images/<?= $product['image'] ?>" width="80" </td>
+                <td><img src="images/<?= $product['image'] ?>" width="80"> </td>
                 <td><?= $product['name'] ?></td>
-                <td><?= $product['quantity'] ?></td>
+                <td>
+                    <form method="POST" action="cart.php">
+                        
+                        <select name="amount">
+                            <?php for ($i = 1; $i <= 20; $i++): ?>
+                                <option value="<?= $i ?>" <?= $i === $product['quantity'] ? 'selected' : '' ?>>
+                                    <?= $i ?>
+                                </option>
+                            <?php endfor; ?>
+                        </select>
+
+                        <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+                        <button type="submit" class="btn btn-warning" name="update">update</button>
+                    </form>
+                </td>
+
                 <td><?= $product['price'] ?></td>
                 <td>
                     <!-- edit product -->
@@ -47,10 +74,12 @@ $products = CartController::showCartProduct();
                 </td>
             </tr>
         <?php endforeach; ?>
-
-
     </tbody>
 </table>
+
+<div>
+    <h4>Total: <?= number_format($total,2) ?> €</h4>
+</div>
 
 
 

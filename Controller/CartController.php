@@ -63,5 +63,40 @@ class CartController
         return $dbProducts;
     }
 
-    
+    public static function updateQuantity(array $data): array|bool
+    {
+        $errors = AddToCartRequest::validate($data);
+        if (count($errors) > 0) {
+            return $errors;
+        }
+
+        $productId = (int) $data['product_id'];
+        $amount = (int) $data['amount'];
+
+        $productModel = new Product();
+        $product = $productModel->show($productId);
+
+        $_SESSION['cart'][$productId] = $amount;
+        return true;
+    }
+
+    public static function getCartTotal(): float
+    {
+        if (empty($_SESSION['cart'])) {
+            return 0.0;
+        }
+
+        $ids = array_keys($_SESSION['cart']);
+        $productModel = new Product();
+        $dbProducts = $productModel->getByIds($ids);
+
+        $total = 0.0;
+
+        foreach ($dbProducts as $product) {
+            $quantity = $_SESSION['cart'][$product['id']] ?? 0;
+            $total += $product['price'] * $quantity;
+        }
+
+        return $total;
+    }
 }
